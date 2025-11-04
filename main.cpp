@@ -51,8 +51,11 @@ int students_program() {
                 int index = check_input();
 
                 Student* new_student = new Student(name, number, subjects, marks, size);
-                students.add_student(new_student, index - 1);
-                cout << "Student added." << endl;
+                try {
+                    students.add_student(new_student, index - 1);
+                } catch (std::out_of_range&) {
+                    cout << "Invalid index for adding" << endl;
+                } 
 
                 delete[] subjects;
                 delete[] marks;
@@ -66,7 +69,7 @@ int students_program() {
                     students.delete_student(index - 1);
                     cout << "Student removed." << endl;
                 } catch (const out_of_range& e) {
-                    cout << e.what() << endl;
+                    cout << "Invalid index for deleting" << endl;
                 }
                 break;
             }
@@ -78,7 +81,7 @@ int students_program() {
                     students.edit_student(index - 1);
                     cout << "Student data updated." << endl;
                 } catch (const out_of_range& e) {
-                    cout << e.what() << endl;
+                    cout << "Invalid index for editing" << endl;
                 }
                 break;
             }
